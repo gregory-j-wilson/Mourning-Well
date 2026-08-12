@@ -1,3 +1,9 @@
+databases:
+  - name: mourning-well-db
+    plan: free
+    databaseName: mourning_well
+    user: mourning_well
+
 services:
   - type: web
     name: mourning-well
@@ -7,7 +13,11 @@ services:
     startCommand: "gunicorn mourning_well.wsgi:application"
     envVars:
       - key: PYTHON_VERSION
-        value: "3.12.3"
+        value: "3.12.9"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mourning-well-db
+          property: connectionString
       - key: DJANGO_SECRET_KEY
         generateValue: true
       - key: DJANGO_DEBUG
