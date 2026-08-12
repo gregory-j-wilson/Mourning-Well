@@ -1,0 +1,22 @@
+{% extends "support/base.html" %}
+{% block content %}
+  <h1>You are not alone in this.</h1>
+  <p class="muted">Grief has no timeline and no single shape. Whenever you're ready, here is a place to sit with a thought.</p>
+
+  {% if prompt %}
+  <div class="card">
+    <span class="tag">{{ prompt.get_stage_display }}</span>
+    <p class="prompt-quote">"{{ prompt.text }}"</p>
+    <a href="{% url 'prompt_detail' prompt.pk %}" class="btn">Reflect on this</a>
+  </div>
+  {% else %}
+  <div class="card"><p class="muted">No prompts have been added yet.</p></div>
+  {% endif %}
+
+  <div class="card">
+    <h2>Where would you like to go?</h2>
+    <p><a class="plain" href="{% url 'prompt_list' %}">Browse guided prompts</a> by where you are in your grief.</p>
+    <p><a class="plain" href="{% url 'resource_list' %}">Find support resources</a> — hotlines, reading, and organizations.</p>
+    <p><a class="plain" href="{% url 'journal' %}">Return to your journal</a> to revisit what you've written.</p>
+  </div>
+{% endblock %}

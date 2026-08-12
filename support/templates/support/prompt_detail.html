@@ -1,0 +1,26 @@
+{% extends "support/base.html" %}
+{% block title %}Reflect — Mourning Well{% endblock %}
+{% block content %}
+  <span class="tag">{{ prompt.get_stage_display }}</span>
+  <h1>"{{ prompt.text }}"</h1>
+
+  <div class="card">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.body }}
+      <div style="margin-top:1rem;">
+        <button type="submit" class="btn">Save reflection</button>
+      </div>
+    </form>
+  </div>
+
+  {% if entries %}
+    <h2>Your reflections</h2>
+    {% for entry in entries %}
+      <div class="card">
+        <p>{{ entry.body|linebreaks }}</p>
+        <p class="muted">{{ entry.created|date:"F j, Y, g:i a" }}</p>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

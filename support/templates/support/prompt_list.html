@@ -1,0 +1,20 @@
+{% extends "support/base.html" %}
+{% block title %}Prompts — Mourning Well{% endblock %}
+{% block content %}
+  <h1>Guided prompts</h1>
+  <div class="filters">
+    <a href="{% url 'prompt_list' %}" class="btn {% if not active_stage %}{% else %}btn-soft{% endif %}">All</a>
+    {% for value, label in stages %}
+      <a href="?stage={{ value }}" class="btn {% if active_stage == value %}{% else %}btn-soft{% endif %}">{{ label }}</a>
+    {% endfor %}
+  </div>
+  {% for prompt in prompts %}
+    <div class="card">
+      <span class="tag">{{ prompt.get_stage_display }}</span>
+      <p class="prompt-quote">"{{ prompt.text }}"</p>
+      <a href="{% url 'prompt_detail' prompt.pk %}" class="btn-soft btn">Reflect</a>
+    </div>
+  {% empty %}
+    <div class="card"><p class="muted">No prompts here yet.</p></div>
+  {% endfor %}
+{% endblock %}

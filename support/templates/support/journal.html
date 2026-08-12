@@ -1,0 +1,16 @@
+{% extends "support/base.html" %}
+{% block title %}My Journal — Mourning Well{% endblock %}
+{% block content %}
+  <h1>My journal</h1>
+  <p class="muted">Everything you've written, gathered in one place.</p>
+  {% for entry in entries %}
+    <div class="card">
+      {% if entry.prompt %}<span class="tag">{{ entry.prompt.get_stage_display }}</span>
+      <p class="muted" style="font-style:italic;">"{{ entry.prompt.text }}"</p>{% endif %}
+      <p>{{ entry.body|linebreaks }}</p>
+      <p class="muted">{{ entry.created|date:"F j, Y, g:i a" }}</p>
+    </div>
+  {% empty %}
+    <div class="card"><p class="muted">You haven't written anything yet. <a class="plain" href="{% url 'prompt_list' %}">Start with a prompt.</a></p></div>
+  {% endfor %}
+{% endblock %}

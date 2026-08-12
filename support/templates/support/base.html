@@ -1,0 +1,136 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Mourning Well{% endblock %}</title>
+  <style>
+    :root {
+      --bg: #f4f1ec;
+      --card: #fbfaf7;
+      --ink: #33302b;
+      --muted: #7a746c;
+      --accent: #6b7a63;
+      --accent-soft: #e6e9e0;
+      --line: #e2ddd4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, 'Times New Roman', serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+    header {
+      border-bottom: 1px solid var(--line);
+      background: var(--card);
+    }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 0 1.5rem; }
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: baseline;
+      padding: 1.2rem 0;
+      flex-wrap: wrap;
+    }
+    nav .brand {
+      font-size: 1.3rem;
+      font-weight: normal;
+      letter-spacing: 0.5px;
+      margin-right: auto;
+      color: var(--accent);
+    }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.95rem; }
+    nav a:hover { color: var(--ink); }
+    main { padding: 3rem 0; }
+    h1 { font-weight: normal; font-size: 2rem; margin: 0 0 1.5rem; }
+    h2 { font-weight: normal; color: var(--accent); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 1.8rem;
+      margin-bottom: 1.2rem;
+    }
+    .prompt-quote {
+      font-size: 1.35rem;
+      font-style: italic;
+      color: var(--ink);
+    }
+    .muted { color: var(--muted); font-size: 0.9rem; }
+    .tag {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-family: system-ui, sans-serif;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.6rem 1.3rem;
+      border-radius: 6px;
+      border: none;
+      font-family: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn-soft { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    textarea {
+      width: 100%;
+      font-family: inherit;
+      font-size: 1.05rem;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      resize: vertical;
+    }
+    .filters { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .message {
+      background: var(--accent-soft);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem 1rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+    footer { border-top: 1px solid var(--line); padding: 2rem 0; text-align: center; }
+    a.plain { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="{% url 'home' %}" class="brand">Mourning Well</a>
+        <a href="{% url 'prompt_list' %}">Prompts</a>
+        <a href="{% url 'journal' %}">My Journal</a>
+        <a href="{% url 'resource_list' %}">Resources</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="wrap">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="message">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+  <footer>
+    <div class="wrap muted">
+      A quiet space to grieve, remember, and heal. Your writing stays on your device's session.
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% extends "support/base.html" %}
+{% block title %}Resources — Mourning Well{% endblock %}
+{% block content %}
+  <h1>Support resources</h1>
+  <p class="muted">If you are in crisis, please reach out. You deserve support.</p>
+  {% for kind, items in grouped.items %}
+    <h2>{{ kind }}</h2>
+    {% for r in items %}
+      <div class="card">
+        <strong>{{ r.title }}</strong>
+        {% if r.description %}<p>{{ r.description }}</p>{% endif %}
+        {% if r.phone %}<p class="muted">Call: {{ r.phone }}</p>{% endif %}
+        {% if r.url %}<p><a class="plain" href="{{ r.url }}" target="_blank" rel="noopener">Visit resource</a></p>{% endif %}
+      </div>
+    {% endfor %}
+  {% empty %}
+    <div class="card"><p class="muted">No resources added yet.</p></div>
+  {% endfor %}
+{% endblock %}
